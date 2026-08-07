@@ -1,0 +1,9 @@
+# Build files
+Debug/
+Release/
+
+# Eclipse / STM32CubeIDE settings
+.settings/
+
+# Launch configurations
+*.launch
