@@ -10,7 +10,9 @@ This project demonstrates USART communication between an STM32 Nucleo board and 
   - STM32F767ZI Nucleo board was used in this project.
 - One Arduino board, or another board with UART/USART peripherals.
 - Jumper wires for connecting the boards.
-> Important: Resistors are needed, since the STM32 operates with 3V3 and the Arduino operates with 5V.
+- Resistors for voltage-level adaptation.
+
+> **Important:** The STM32 operates at 3.3 V logic levels, while many Arduino boards operate at 5 V logic levels. Appropriate voltage-level adaptation is required to avoid damaging the STM32.
 
 ## Software
 
@@ -86,8 +88,8 @@ This test was developed to understand the basic operation of serial communicatio
 
 The main concepts explored were:
 
-- C language for embedded electronics
-- electrical circuits
+- C programming for embedded systems
+- basic electronic circuits
 - USART/UART communication
 - Baud rate configuration
 - TX and RX signals
@@ -97,8 +99,9 @@ The main concepts explored were:
 
 ## Possible Improvements
 
-- Fix delays in the transmission.
+- Improve the timing of message transmission.
 - Add commands that can be sent from the Arduino to the STM32.
 - Implement error handling.
 - Experiment with different baud rates.
 - Use interrupts instead of polling for data reception.
+- Implement DMA for data transmission and reception.
