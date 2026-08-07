@@ -2,7 +2,7 @@
 
 Documentation of a test developed to learn and practice serial communication protocols.
 
-This project demonstrates USART communication between an STM32 Nucleo board and an Arduino. In this test, the STM32 sends messages through USART, while the Arduino receives and displays the transmitted data through the Serial Monitor.
+This project demonstrates USART communication between an STM32 Nucleo board and an Arduino. In this test, the STM32 periodically sends a message to the Arduino and can also receive messages from it.
 
 ## Hardware Requirements
 
@@ -10,6 +10,7 @@ This project demonstrates USART communication between an STM32 Nucleo board and 
   - STM32F767ZI Nucleo board was used in this project.
 - One Arduino board, or another board with UART/USART peripherals.
 - Jumper wires for connecting the boards.
+> Important: Resistors are needed, since the STM32 operates with 3V3 and the Arduino operates with 5V.
 
 ## Software
 
@@ -17,6 +18,11 @@ This project demonstrates USART communication between an STM32 Nucleo board and 
 - Arduino IDE
 
 ## Configuration
+The communication parameters used in this test are:
+
+- Peripheral --> USART6
+- Baud rate --> 115200
+- Word length --> 8 bits
 
 ### STM32
 
@@ -52,14 +58,27 @@ TX and RX must be crossed because the transmitter of one board must be connected
 
 > Make sure that the logic levels of both boards are compatible before connecting their UART/USART pins.
 
+## Communication
+The STM32 periodically transmits the message:
+"Recebido, Arduino!"
+
+The STM32 can also receive data from the Arduino (it uses polling to receive the data). 
+Each received byte is checked and stored in a buffer until \n indicates the end of the message.
+When the complete message is received, the STM32 sends it back through USART.
+
+- The main communication functions used in the project are:
+ - HAL_UART_Transmit() for transmitting data.
+ - HAL_UART_Receive() for receiving data.
+
 ## Testing
 
 1. Build the STM32 project in STM32CubeIDE.
 2. Upload the firmware to the STM32 board.
 3. Build and upload the Arduino firmware using Arduino IDE.
-4. Open the Arduino Serial Monitor.
-5. Set the Serial Monitor to the same baud rate configured in the firmware.
-6. Check whether the messages sent by the STM32 are correctly received by the Arduino.
+4. Build the physical circuit. 
+5. Open the Arduino Serial Monitor. It should display its own message and the message received.
+6. Set the Serial Monitor to the same baud rate configured in the firmware.
+7. Check whether the messages sent by the STM32 are correctly received by the Arduino.
 
 ## What I Learned
 
@@ -68,6 +87,7 @@ This test was developed to understand the basic operation of serial communicatio
 The main concepts explored were:
 
 - C language for embedded electronics
+- electrical circuits
 - USART/UART communication
 - Baud rate configuration
 - TX and RX signals
@@ -77,7 +97,7 @@ The main concepts explored were:
 
 ## Possible Improvements
 
-- Implement bidirectional communication.
+- Fix delays in the transmission.
 - Add commands that can be sent from the Arduino to the STM32.
 - Implement error handling.
 - Experiment with different baud rates.
